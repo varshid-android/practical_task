@@ -426,6 +426,7 @@ const Dashboard = props => {
         {/* for bottom sheet  */}
 
         <RBSheet
+          dragFromTopOnly
           ref={refRBSheet}
           closeOnDragDown={true}
           closeOnPressMask={true}
@@ -438,226 +439,232 @@ const Dashboard = props => {
               backgroundColor: 'gray',
             },
             container: {
-              borderRadius: 40,
+              borderTopLeftRadius: 40,
+              borderTopRightRadius: 40,
               elevation: 10,
             },
           }}
-          height={750}
+          height={650}
           openDuration={250}>
-          <View style={{backgroundColor: 'white'}}>
-            <ImageBackground
-              source={require('../assets/tometo.png')}
-              style={{height: 256, width: '100%'}}>
-              <View style={{flex: 1}}></View>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: 'white',
-                  height: 45,
-                  width: 45,
-                  borderRadius: 45 / 2,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  elevation: 8,
-                  alignSelf: 'flex-end',
-                  margin: 16,
-                }}
-                onPress={() => {
-                  props.likeANDdislike(SelectedSubItem.id);
-                }}>
-                <Image
+          <ScrollView>
+            <View style={{backgroundColor: 'white'}}>
+              <ImageBackground
+                source={require('../assets/tometo.png')}
+                style={{height: 256, width: '100%'}}>
+                <View style={{flex: 1}}></View>
+                <TouchableOpacity
                   style={{
-                    height: 20,
-                    width: 20,
-                    resizeMode: 'contain',
+                    backgroundColor: 'white',
+                    height: 45,
+                    width: 45,
+                    borderRadius: 45 / 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    elevation: 8,
+                    alignSelf: 'flex-end',
+                    margin: 16,
                   }}
-                  source={
-                    props.items.at(SelectedSubItem.id - 1).isLike
-                      ? require('../assets/selected_heart.png')
-                      : require('../assets/heart.png')
-                  }
-                />
-              </TouchableOpacity>
-            </ImageBackground>
-            <View style={{marginHorizontal: 16, marginTop: 24}}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 24,
-                  color: 'black',
-                }}>
-                Tomatoes Vine Large (min 500g)
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 16,
-                }}>
-                <Text
-                  style={{fontWeight: '400', fontSize: 16, color: '#6D6B6B'}}>
-                  Sold by:
-                </Text>
-                <Image
-                  style={{
-                    height: 29,
-                    width: 52,
-                    resizeMode: 'contain',
-                  }}
-                  source={require('../assets/small_logo.png')}
-                />
-                <Text style={{fontWeight: '600', fontSize: 16, color: 'black'}}>
-                  Harris Farm Markets
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 12,
-                }}>
-                <Text
-                  style={{fontWeight: '400', fontSize: 16, color: '#6D6B6B'}}>
-                  Status:
-                </Text>
-                <Text
-                  style={{fontWeight: '600', fontSize: 16, color: '#43B028'}}>
-                  {' '}
-                  In Stock
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 12,
-                }}>
-                <Text
-                  style={{fontWeight: '400', fontSize: 16, color: '#6D6B6B'}}>
-                  Categories:{'  '}
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 16,
-                    color: 'black',
-                    textDecorationLine: 'underline',
+                  onPress={() => {
+                    props.likeANDdislike(SelectedSubItem.id);
                   }}>
-                  {SelectedItem.name}
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      resizeMode: 'contain',
+                    }}
+                    source={
+                      props.items.at(SelectedSubItem.id - 1).isLike
+                        ? require('../assets/selected_heart.png')
+                        : require('../assets/heart.png')
+                    }
+                  />
+                </TouchableOpacity>
+              </ImageBackground>
+              <View style={{marginHorizontal: 16, marginTop: 24}}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 24,
+                    color: 'black',
+                  }}>
+                  Tomatoes Vine Large (min 500g)
                 </Text>
-              </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 16,
+                  }}>
+                  <Text
+                    style={{fontWeight: '400', fontSize: 16, color: '#6D6B6B'}}>
+                    Sold by:
+                  </Text>
+                  <Image
+                    style={{
+                      height: 29,
+                      width: 52,
+                      resizeMode: 'contain',
+                    }}
+                    source={require('../assets/small_logo.png')}
+                  />
+                  <Text
+                    style={{fontWeight: '600', fontSize: 16, color: 'black'}}>
+                    Harris Farm Markets
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 12,
+                  }}>
+                  <Text
+                    style={{fontWeight: '400', fontSize: 16, color: '#6D6B6B'}}>
+                    Status:
+                  </Text>
+                  <Text
+                    style={{fontWeight: '600', fontSize: 16, color: '#43B028'}}>
+                    {' '}
+                    In Stock
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 12,
+                  }}>
+                  <Text
+                    style={{fontWeight: '400', fontSize: 16, color: '#6D6B6B'}}>
+                    Categories:{'  '}
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: '600',
+                      fontSize: 16,
+                      color: 'black',
+                      textDecorationLine: 'underline',
+                    }}>
+                    {SelectedItem.name}
+                  </Text>
+                </View>
 
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginTop: 12,
-                  marginLeft: 5,
-                }}>
-                <Text
-                  style={{fontWeight: 'bold', fontSize: 24, color: 'black'}}>
-                  ${SelectedSubItem.price}
-                </Text>
-                <Text
+                <View
                   style={{
-                    fontWeight: '400',
-                    fontSize: 16,
-                    color: 'black',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 12,
+                    marginLeft: 5,
                   }}>
-                  {' '}
-                  /item
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginTop: 40,
-                  flexDirection: 'row',
-                }}>
-                <View>
+                  <Text
+                    style={{fontWeight: 'bold', fontSize: 24, color: 'black'}}>
+                    ${SelectedSubItem.price}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: '400',
                       fontSize: 16,
                       color: 'black',
                     }}>
-                    Information
-                  </Text>
-                  <View
-                    style={{
-                      backgroundColor: 'black',
-                      height: 3,
-                      marginTop: 8,
-                    }}></View>
-                </View>
-                <View style={{flex: 1}}></View>
-              </View>
-              <Text
-                style={{
-                  fontWeight: '400',
-                  fontSize: 16,
-                  color: '#6D6B6B',
-                  marginTop: 17,
-                }}>
-                Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-                Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
-                Aenean imperdiet. Etiam ultricies nisi vel augue.
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 6,
-                }}>
-                <View>
-                  <Text
-                    style={{
-                      fontWeight: '400',
-                      fontSize: 14,
-                      color: '#0B0909',
-                    }}>
-                    2 items
-                  </Text>
-                  <Text
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: 18,
-                      color: '#0B0909',
-                      marginTop: 4,
-                    }}>
-                    $100.00
+                    {' '}
+                    /item
                   </Text>
                 </View>
-                <TouchableOpacity
-                  onPress={() => {
-                    props.addToCart(item.id);
-                  }}
+                <View
                   style={{
-                    backgroundColor: '#43B028',
-                    borderRadius: 30,
-                    height: 48,
-                    width: 191,
-                    marginHorizontal: 8,
-                    marginTop: 16,
+                    marginTop: 40,
                     flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}>
-                  <Text style={{color: 'white', fontWeight: 'bold'}}>
-                    GO TO CART
-                  </Text>
-                  <Image
-                    style={{
-                      height: 16,
-                      width: 16,
-                      resizeMode: 'contain',
-                      marginLeft: 12,
+                  <View>
+                    <Text
+                      style={{
+                        fontWeight: '400',
+                        fontSize: 16,
+                        color: 'black',
+                      }}>
+                      Information
+                    </Text>
+                    <View
+                      style={{
+                        backgroundColor: 'black',
+                        height: 3,
+                        marginTop: 8,
+                      }}></View>
+                  </View>
+                  <View style={{flex: 1}}></View>
+                </View>
+                <Text
+                  style={{
+                    fontWeight: '400',
+                    fontSize: 16,
+                    color: '#6D6B6B',
+                    marginTop: 17,
+                  }}>
+                  Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
+                  tellus. Phasellus viverra nulla ut metus varius laoreet.
+                  Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
+                  augue.
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: 6,
+                    marginBottom: 30,
+                  }}>
+                  <View>
+                    <Text
+                      style={{
+                        fontWeight: '400',
+                        fontSize: 14,
+                        color: '#0B0909',
+                      }}>
+                      2 items
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 18,
+                        color: '#0B0909',
+                        marginTop: 4,
+                      }}>
+                      $100.00
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      props.addToCart(item.id);
                     }}
-                    source={require('../assets/right_arrow.png')}
-                  />
-                </TouchableOpacity>
+                    style={{
+                      backgroundColor: '#43B028',
+                      borderRadius: 30,
+                      height: 48,
+                      width: 191,
+                      marginHorizontal: 8,
+                      marginTop: 16,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>
+                      GO TO CART
+                    </Text>
+                    <Image
+                      style={{
+                        height: 16,
+                        width: 16,
+                        resizeMode: 'contain',
+                        marginLeft: 12,
+                      }}
+                      source={require('../assets/right_arrow.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
+          </ScrollView>
         </RBSheet>
       </View>
     </ScrollView>
