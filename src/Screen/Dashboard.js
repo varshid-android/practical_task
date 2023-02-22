@@ -36,8 +36,52 @@ const Dashboard = props => {
   const [IsFollow, setIsFollow] = useState(false);
   const [SelectedItem, setSelectedItem] = useState({id: 2, name: 'Fruits'});
   const [SelectedSubItem, setSelectedSubItem] = useState(props.items.at(0));
+  const [total, seTotal] = useState(0);
+  const [SearchArray, setSearchArray] = useState([]);
 
-  useEffect(() => {}, [SelectedSubItem, props.items]);
+  const searchFilterFunction = text => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource and update FilteredDataSource
+      const newData = props.items.filter(function (item) {
+        // Applying filter for the inserted text in search bar
+        const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setSearchArray(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setSearchArray([]);
+      setSearch(text);
+    }
+  };
+
+  useEffect(() => {
+    seTotal(
+      props.items
+        .filter(i => {
+          return i.inCart == true;
+        })
+        .reduce(
+          (total, currentItem) =>
+            (total = total + currentItem.price * currentItem.count),
+          0,
+        )
+        .toFixed(2),
+    );
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      // The screen is focused
+
+      refRBSheet.current.close();
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [SelectedSubItem, props.items]);
 
   return (
     <ScrollView>
@@ -162,7 +206,7 @@ const Dashboard = props => {
               style={{color: 'black', fontSize: 16}}
               value={Search}
               onChangeText={txt => {
-                setSearch(txt);
+                searchFilterFunction(txt);
               }}></TextInput>
           </View>
         </ImageBackground>
@@ -236,7 +280,7 @@ const Dashboard = props => {
         {/* display all items */}
         <FlatGrid
           itemDimension={150}
-          data={props.items}
+          data={Search.length == 0 ? props.items : SearchArray}
           style={{marginTop: 10, flex: 1, backgroundColor: 'white'}}
           spacing={20}
           renderItem={({item}) => (
@@ -621,7 +665,12 @@ const Dashboard = props => {
                         fontSize: 14,
                         color: '#0B0909',
                       }}>
-                      2 items
+                      {
+                        props.items.filter(i => {
+                          return i.inCart == true;
+                        }).length
+                      }{' '}
+                      items
                     </Text>
                     <Text
                       style={{
@@ -630,12 +679,13 @@ const Dashboard = props => {
                         color: '#0B0909',
                         marginTop: 4,
                       }}>
-                      $100.00
+                      ${total}
                     </Text>
                   </View>
                   <TouchableOpacity
                     onPress={() => {
-                      props.addToCart(item.id);
+                      refRBSheet.current.close();
+                      props.navigation.navigate('Cart');
                     }}
                     style={{
                       backgroundColor: '#43B028',

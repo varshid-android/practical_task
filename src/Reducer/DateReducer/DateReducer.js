@@ -131,6 +131,17 @@ const DateReducer = (state = initialState, action) => {
             : i;
         }),
       };
+    case date_types.CLEARCART:
+      return {
+        ...state,
+        items: state.items.map(i => {
+          return {
+            ...i,
+            count: 0,
+            inCart: false,
+          };
+        }),
+      };
 
     default:
       return state;

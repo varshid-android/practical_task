@@ -4,6 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import Dashboard from '../Screen/Dashboard';
 import Splash from '../Screen/Splash';
+import Cart from '../Screen/Cart';
+import Order from '../Screen/Order';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,16 @@ export default function MainNavigation() {
           name="Dashboard"
           component={Dashboard}
           options={{headerShown: false, animation: 'slide_from_bottom'}}
+        />
+        <Stack.Screen
+          name="Cart"
+          component={Cart}
+          options={{headerShown: false, animation: 'fade_from_bottom'}}
+        />
+        <Stack.Screen
+          name="Order"
+          component={Order}
+          options={{headerShown: false, animation: 'fade_from_bottom'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

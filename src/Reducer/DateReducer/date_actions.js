@@ -16,3 +16,7 @@ export const minusItem = id => ({
   type: date_types.MINUSITEM,
   id,
 });
+export const clearCart = payload => ({
+  type: date_types.CLEARCART,
+  payload,
+});

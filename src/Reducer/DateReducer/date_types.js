@@ -5,4 +5,5 @@ export default {
   LIKEITEM: mainTypes.DATE_DETAILS + 'LIKEITEM',
   PLUSITEM: mainTypes.DATE_DETAILS + 'PLUSITEM',
   MINUSITEM: mainTypes.DATE_DETAILS + 'MINUSITEM',
+  CLEARCART: mainTypes.DATE_DETAILS + 'CLEARCART',
 };
